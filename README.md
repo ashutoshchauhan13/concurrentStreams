@@ -30,10 +30,11 @@ example call: http://localhost:3000/user/stream?userId=test124
 To add a new active stream to the user, API returns an error if user's quota is exhausted
 example call: http://localhost:3000/user/stream
 with body 
-
+```javascript
   {
       "userId": "test124"
   }
+  ```
 
 3. DELETE /user/stream
 
@@ -41,10 +42,11 @@ To remove an active stream to the user, API returns an error if user's active st
 example call: http://localhost:3000/user/stream
 with body 
 
-{
-    "userId": "test124"
-}
-
+```javascript
+  {
+      "userId": "test124"
+  }
+  ```
 
 ### controllers/stream.js
 
