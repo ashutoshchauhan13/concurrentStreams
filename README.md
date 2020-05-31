@@ -30,11 +30,12 @@ example call: http://localhost:3000/user/stream?userId=test124
 To add a new active stream to the user, API returns an error if a user's quota is exhausted
 example call: http://localhost:3000/user/stream
 with body 
+
 ```javascript
   {
       "userId": "test124"
   }
-  ```
+```
 
 3. DELETE /user/stream
 
@@ -46,7 +47,7 @@ with body
   {
       "userId": "test124"
   }
-  ```
+```
 
 ### controllers/stream.js
 
@@ -69,17 +70,20 @@ jest testing library. Please note - both redisCache and stream are mocked out us
 ## Commands to run the app
 
 1. Check out the code - install the required packages
+
 ```javascript 
 node install
 ```
 
 2. To run the app - It will start the server on 3000 port
+
 ```javascript 
-node start.js
+  node start.js
 ```
 3. To run the tests 
+
 ```javascript 
-npm test
+  npm test
 ```
 
 ## Test results
