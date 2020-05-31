@@ -18,8 +18,9 @@ module.exports = {
         });
       })
       .catch(function(error) {
+
         return res.status(403).json({
-          'message': error
+          'message': error === 'Operation rejected by redis' ? 'Please try again' : error
         });
       });
   },
@@ -34,7 +35,7 @@ module.exports = {
       })
       .catch(function(error) {
         return res.status(403).json({
-          'message': error
+          'message': error === 'Operation rejected by redis' ? 'Please try again' : error
         });
       });
   },

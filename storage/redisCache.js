@@ -33,7 +33,7 @@ function increment(userId, maxAllowed) {
           .incr(userId)
           .exec(function(execError, results) {
             if (execError) {
-              reject('error');
+              reject('Operation rejected by redis');
             } else {
               resolve(results);
             }
@@ -65,7 +65,7 @@ function decrement(userId) {
           .decr(userId)
           .exec(function(execError, results) {
             if (execError) {
-              return reject('error');
+              reject('Operation rejected by redis');
             }
             return resolve(results);
           });
