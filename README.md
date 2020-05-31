@@ -88,6 +88,16 @@ npm test
   <img src="https://github.com/ashutoshchauhan13/concurrentStreams/blob/master/screen-shot/tests.png?raw=true">
 </p>
 
+## Pushing it to production environment
+
+Following steps would be required for it to be production grade ready:
+
+1. Configuring PORT and Redis configuration seperately for DEV and PROD environment
+2. Adding further tests and code review
+3. Adding concurrency specific tests where same user is updating the value from differnt devices at the same time
+4. Adding security around end points
+
+
 
 
 
