@@ -30,7 +30,7 @@ describe('stream', () => {
     await stream.addActiveStream(req, res)
     expect(res.status).toHaveBeenCalledWith(200);
      expect(res.json).toHaveBeenCalledWith({
-       'message': 'Stream added successfull',
+       'message': 'Stream added successfully',
        'activeStreams': 1
      });
   });

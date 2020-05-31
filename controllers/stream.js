@@ -13,7 +13,7 @@ module.exports = {
     increment(req.body.userId, maxAllowedStreams)
       .then(function(results) {
         return res.status(200).json({
-          'message': 'Stream added successfull',
+          'message': 'Stream added successfully',
           'activeStreams': results[0]
         });
       })
