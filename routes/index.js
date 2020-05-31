@@ -1,26 +1,18 @@
 
 var express = require('express');
 var router = express.Router();
+var stream = require('../controllers/stream');
 
 router.get('/user/stream', function (req, res) {
-  return res.status(200).json({
-    'message': 'You have 0 active streams available',
-    'activeStreams': 0
-  });
+  return stream.addActiveStream(req,res);
 });
 
 router.post('/user/stream', function (req, res) {
-  res.status(200).json({
-    'message': 'Stream added successfull',
-    'activeStreams': 0
-  });
+  return stream.removeActiveStream(req,res);
 });
 
 router.delete('/user/stream', function (req, res) {
-  res.status(200).json({
-    'message': 'Stream deleted successfull',
-    'activeStreams': 0
-  });
+  return stream.checkActiveStreams(req,res);
 });
 
 module.exports = router
