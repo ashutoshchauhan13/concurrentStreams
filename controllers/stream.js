@@ -1,26 +1,58 @@
+const {
+  increment,
+  decrement,
+  fetch,
+  closeInstance
+} = require("../storage/redisCache");
+
 const maxAllowedStreams = 3;
 
 module.exports = {
 
   addActiveStream: (req, res) => {
-    return res.status(200).json({
-      'message': 'You have 0 active streams available',
-      'activeStreams': 0
-    });
+    increment(req.body.userId, maxAllowedStreams)
+      .then(function(results) {
+        return res.status(200).json({
+          'message': 'Stream added successfull',
+          'activeStreams': results[0]
+        });
+      })
+      .catch(function(error) {
+        return res.status(403).json({
+          'message': error
+        });
+      });
   },
 
   removeActiveStream: (req, res) => {
-    res.status(200).json({
-      'message': 'Stream added successfull',
-      'activeStreams': 0
-    });
+    decrement(req.body.userId)
+      .then(function(results) {
+        return res.status(200).json({
+          'message': 'Stream removed successfully',
+          'activeStreams': results[0]
+        });
+      })
+      .catch(function(error) {
+        return res.status(403).json({
+          'message': error
+        });
+      });
   },
 
   checkActiveStreams: (req, res) => {
-    res.status(200).json({
-      'message': 'Stream deleted successfull',
-      'activeStreams': 0
-    });
+    console.log('req.query.userId=' + req.query.userId)
+    fetch(req.query.userId, maxAllowedStreams)
+      .then(function(result) {
+        return res.status(200).json({
+          'message': 'You have ' + result + ' active streams available',
+          'activeStreams': result
+        });
+      })
+      .catch(function(error) {
+        return res.status(403).json({
+          'message': error
+        });
+      });
 
   }
 }
