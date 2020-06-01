@@ -17,6 +17,8 @@ For this purpose, Redis provides watch function which allows us to marks the giv
 
 Every time we will update (add or delete a new stream) we will add a watch so that we can ensure no one else is stepping on our toe's.
 
+**Please note** : Over time cache will build up so we would also need a cache retention policy similar to LRU - I have seen Redis LRU caching library but I have not tested yet it so have not dropped it in our implementation
+
 ## Code structure
 
 ### routes/index.js
@@ -67,6 +69,10 @@ jest testing library. Please note - both redisCache and stream are mocked out us
 
 2. Postman scripts also have few tests (API' testing from automation QA perspective (i.e Black box testing))
 
+## Logging
+
+express-pino-logger is used for detailed app logging
+
 ## Commands to run the app
 
 1. Check out the code - install the required packages
@@ -97,11 +103,12 @@ node install
 
 Following steps would be required for it to be production grade ready:
 
-1. Configuring PORT and Redis configuration separately for DEV and PROD environment
-2. Adding further tests and code review
-3. Adding concurrency specific tests where the same user is updating the value from different devices at the same time
-4. Adding security around end -points
-5. Cloud deployment configuration
+1. Add Caching retention policy (i.e LRU or similar)
+2. Configuring PORT and Redis configuration separately for DEV and PROD environment
+3. Adding further tests and code review
+4. Adding concurrency specific tests where the same user is updating the value from different devices at the same time
+5. Adding security around end -points
+6. Cloud deployment configuration
 
 
 
