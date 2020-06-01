@@ -28,7 +28,7 @@ Expose the required end-points for this service.
 To get how many streams are active for a particular user, API returns a warning if a user's quota is exhausted
 example call: http://localhost:3000/user/stream?userId=test124
 
-2. GET /user/stream
+2. POST /user/stream
 To add a new active stream to the user, API returns an error if a user's quota is exhausted
 example call: http://localhost:3000/user/stream
 with body 
