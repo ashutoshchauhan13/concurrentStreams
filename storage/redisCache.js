@@ -2,6 +2,7 @@ const redis = require('redis');
 const {
   promisify
 } = require('util');
+const { logger } = require('../utils/logger');
 
 const client = redis.createClient({
   retry_strategy: function(options) {
@@ -33,7 +34,7 @@ function clear() {
     if (err) {
       throw new Error(err);
     }
-    console.log(success);
+    logger.info('flush all success');
   })
 }
 
@@ -52,10 +53,11 @@ function increment(userId, maxAllowed) {
           .incr(userId)
           .exec(function(execError, results) {
             if (execError) {
+              logger.error(execError);
               reject('Operation rejected by redis');
             } else {
               if (results === null) {
-                console.log("transaction aborted because results were null");
+                logger.info("transaction aborted because results were null");
                 reject('Operation rejected by redis');
               }
               resolve(results);
@@ -64,7 +66,7 @@ function increment(userId, maxAllowed) {
 
       })
       .catch(function(error) {
-        console.log(error);
+        logger.error(error);
         reject('Unable to update the value this time');
       })
   })
@@ -87,10 +89,11 @@ function decrement(userId) {
           .decr(userId)
           .exec(function(execError, results) {
             if (execError) {
+              logger.error(execError);
               reject('Operation rejected by redis');
             } else {
               if (results === null) {
-                console.log("transaction aborted because results were null");
+                logger.info("transaction aborted because results were null");
                 reject('Operation rejected by redis');
               }
               resolve(results);
@@ -99,7 +102,7 @@ function decrement(userId) {
 
       })
       .catch(function(error) {
-        console.log(error);
+        logger.error(error);
         reject('Unable to update the value this time');
       })
   })
@@ -110,7 +113,7 @@ function fetch(userId, maxAllowed) {
   let promise = new Promise((resolve, reject) => {
     getAsync(userId)
       .then(function(result) {
-        console.log('result= ' + result);
+        logger.info('result= ' + result);
         if (result > maxAllowed - 1) {
           return reject('Quota of max ' + maxAllowed + ' per user exceeded');
         } else {

@@ -1,4 +1,6 @@
 const app = require('./server.js')
+const { logger } = require('./utils/logger');
+
 app.listen(3000, function () {
-    console.log('App is listening on port 3000!');
+    logger.error('App is listening on port 3000!');
 });

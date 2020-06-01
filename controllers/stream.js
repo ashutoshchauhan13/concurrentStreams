@@ -5,11 +5,16 @@ const {
   closeInstance
 } = require("../storage/redisCache");
 
+const {
+  logger
+} = require('../utils/logger');
+
 const maxAllowedStreams = 3;
 
 module.exports = {
 
   addActiveStream: (req, res) => {
+    logger.info('addActiveStream')
     increment(req.body.userId, maxAllowedStreams)
       .then(function(results) {
         return res.status(200).json({
@@ -18,7 +23,7 @@ module.exports = {
         });
       })
       .catch(function(error) {
-
+        logger.error(error);
         return res.status(403).json({
           'message': error === 'Operation rejected by redis' ? 'Please try again' : error
         });
@@ -26,6 +31,7 @@ module.exports = {
   },
 
   removeActiveStream: (req, res) => {
+    logger.info('removeActiveStream')
     decrement(req.body.userId)
       .then(function(results) {
         return res.status(200).json({
@@ -34,6 +40,7 @@ module.exports = {
         });
       })
       .catch(function(error) {
+        logger.error(error);
         return res.status(403).json({
           'message': error === 'Operation rejected by redis' ? 'Please try again' : error
         });
@@ -41,7 +48,7 @@ module.exports = {
   },
 
   checkActiveStreams: (req, res) => {
-    console.log('req.query.userId=' + req.query.userId)
+    logger.info('addActiveStream')
     fetch(req.query.userId, maxAllowedStreams)
       .then(function(result) {
         return res.status(200).json({
@@ -50,6 +57,7 @@ module.exports = {
         });
       })
       .catch(function(error) {
+        logger.error(error);
         return res.status(403).json({
           'message': error
         });
