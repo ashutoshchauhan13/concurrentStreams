@@ -74,13 +74,14 @@ jest testing library. Please note - both redisCache and stream are mocked out us
 ```javascript 
 node install
 ```
+2. This solutions uses redis - please start the redis server locally (It expects redis to be started on default port)
 
-2. To run the app - It will start the server on 3000 port
+3. To run the app - It will start the server on 3000 port
 
 ```javascript 
   node start.js
 ```
-3. To run the tests 
+4. To run the tests 
 
 ```javascript 
   npm test
