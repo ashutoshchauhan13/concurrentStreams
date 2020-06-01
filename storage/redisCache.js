@@ -1,5 +1,7 @@
 const redis = require('redis');
-const {promisify} = require('util');
+const {
+  promisify
+} = require('util');
 const client = redis.createClient({
   port: '6379',
   host: '127.0.0.1',
@@ -35,9 +37,12 @@ function increment(userId, maxAllowed) {
             if (execError) {
               reject('Operation rejected by redis');
             } else {
+              if (results === null) {
+                console.log("transaction aborted because results were null");
+                reject('Operation rejected by redis');
+              }
               resolve(results);
             }
-
           });
 
       })
@@ -66,8 +71,13 @@ function decrement(userId) {
           .exec(function(execError, results) {
             if (execError) {
               reject('Operation rejected by redis');
+            } else {
+              if (results === null) {
+                console.log("transaction aborted because results were null");
+                reject('Operation rejected by redis');
+              }
+              resolve(results);
             }
-            return resolve(results);
           });
 
       })
